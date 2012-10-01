@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<header>
+    {% block head %}
+        <title>{% block title %}{% endblock %}</title>
+        {% block hdrlinks %}{% endblock %}
+        {% block javascript %}
+            <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+        {% endblock %}
+        <style type='text/css'>
+            body {font-family: verdana, sans-serif; font-size: 12pt;}
+            #container {width: 1000px;}
+            #header {background-color: #ffa500;}
+            h1 {margin-bottom: 0px}
+            #navigation {background-color: #ffd700;}
+            #navigation ul {list-style: none;}
+            #navigation ul li {display: inline;}
+            #content {backgound-color: #eeeeee; width: 100%; float:left;}
+            #footer {background-color: #ffa500;clear: both;text-align: center;}
+        </style>
+    {% endblock %}
+</header>
+<body>
+<div id='container'>
+    <div id='header'>
+        <h1>{{ block('title') }}</h1>
+        <div id='navigation'>
+            <ul>
+                <li>Home</li>
+                <li>Javascript</li>
+            </ul>
+        </div>
+    </div>
+    <div id='content'>
+        {% block content %}{% endblock %}
+    </div>
+    <div id="rightSide">
+        {% block rightSide %}{% endblock %}
+    </div>
+    <div id='footer'>{%block footer %}<a href="http://www.ruesoft.biz">RueSoft</a> Copyright &copy; 2012{% endblock %}</div>
+</div>
+</body>
+</html>
