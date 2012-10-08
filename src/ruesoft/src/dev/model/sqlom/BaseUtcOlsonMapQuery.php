@@ -141,7 +141,7 @@ class BaseUtcOlsonMapQuery extends BaseQuery
     }
 
     public function findPk($pk){
-        $this->filterByTimeZoneId($pk);
+        $this->filterByUtcOlsonMapId($pk);
 
         return $this->find();
     }

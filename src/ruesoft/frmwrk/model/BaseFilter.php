@@ -1,12 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: RueRobi
- * Date: 10/7/12
- * Time: 12:26 PM
- * To change this template use File | Settings | File Templates.
- */
-namespace ruesoft\frmwrk\model;
 
 class BaseFilter
 {
