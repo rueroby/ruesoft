@@ -1,0 +1,14 @@
+{% extends "template.html" %}
+{% block hdrlinks %}
+<link rel="stylesheet" type="text/css" href="../../src/ruesoft/src/dev/resources/css/dev_timezone.css" media='screen'>
+{% endblock %}
+{% block title %}Insert - Timezones{% endblock %}
+{% block content %}
+<form action="ruesoft/web/dev/app_dev.php?controller=Timezone&action=insert" method="post">
+    <div>
+        <h3>SQL Script:</h3>
+        <textarea id="sqlscript" rows="24" cols="160"></textarea><br />
+        <input type="submit" value="Submit"/>
+    </div>
+</form>
+{% endblock %}

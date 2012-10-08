@@ -1,0 +1,23 @@
+{% extends "template.html" %}
+{% block hdrlinks %}
+<link rel="stylesheet" type="text/css" href="../../src/ruesoft/src/dev/resources/css/dev_timezone.css" media='screen'>
+{% endblock %}
+{% block title %}Timezones{% endblock %}
+{% block content %}
+<table>
+    <thead>
+        <th>Current Olson Code</th>
+        <th>GMT Timezone</th>
+        <th>Mapped Olson Code</th>
+    </thead>
+    <tbody>
+    {% for row in rows %}
+    <tr id="row_{{ loop.index }}">
+        {% for column in row %}
+        <td id="column_{{ loop.index }}">{{ column }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
