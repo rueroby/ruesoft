@@ -8,7 +8,6 @@
  */
 namespace ruesoft\frmwrk\controller;
 
-
 class BaseController
 {
     protected $loader;
@@ -17,8 +16,8 @@ class BaseController
     public function __construct(){
 
         \Twig_Autoloader::register();
-        $this->loader = new \Twig_Loader_Filesystem("D:\\websites\\ruesoft\\src\\ruesoft\\src\\dev\\view");  // or     $this->loader = new \Twig_Loader_String();
-        $this->twig = new \Twig_Environment( $this->loader, array('cache' => 'D:\\websites\\ruesoft\\src\\ruesoft\\app_dev\\cache',
+        $this->loader = new \Twig_Loader_Filesystem(__DIR__."/../../src/dev/view");  // or     $this->loader = new \Twig_Loader_String();
+        $this->twig = new \Twig_Environment( $this->loader, array('cache' => __DIR__.'/../../app_dev/cache',
             'auto_reload' => true));
     }
 
