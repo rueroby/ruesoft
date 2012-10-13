@@ -21,6 +21,7 @@ class BaseQuery
     protected $fromClause = "";
     protected $whereClause = "";
     protected $filters = array();
+    protected $orderBy = array();
 
     public function filterBy($columnName, $value, $filterOp = Criteria::EQUALS, $tableName = null){
         $filter = new BaseFilter();
@@ -33,11 +34,24 @@ class BaseQuery
         return $this;
     }
 
+    public function orderBy($columnName, $tableName = null){
+        if ($tableName != null && $columnName != null){
+            array_push($this->orderBy, $tableName . "." . $columnName);
+        }
+        else if ($columnName != null){
+            array_push($this->orderBy, $columnName);
+        }
+    }
+
     public function select($coll){
         if (is_array($coll)){
             $this->select = $coll;
         }
         return $this;
+    }
+
+    protected function getFromClause(){
+        return $this->fromClause;
     }
 
     protected function getSelectedColumns(){
@@ -58,7 +72,7 @@ class BaseQuery
     }
 
     protected function getWhereClause(){
-        $$this->whereClause = "";
+        $this->whereClause = "";
         if (count($this->filters) > 0){
             $this->whereClause = " WHERE ";
 
@@ -70,6 +84,14 @@ class BaseQuery
         }
 
         return $this->whereClause;
+    }
+
+    protected function getOrderByClause(){
+        if (count($this->orderBy) > 0){
+            $orderBy = " ORDER BY " . implode(", ", $this->orderBy);
+            return $orderBy;
+        }
+        return '';
     }
 
 }

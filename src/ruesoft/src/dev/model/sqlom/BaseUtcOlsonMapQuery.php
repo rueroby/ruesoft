@@ -49,6 +49,12 @@ class BaseUtcOlsonMapQuery extends BaseQuery
         return $this;
     }
 
+    public function orderByUtcOlsonMapId(){
+        $this->orderBy(BaseUtcOlsonMap::COLUMN_UTC_OLSON_MAP_ID, BaseUtcOlsonMap::TABLE_NAME);
+
+        return $this;
+    }
+
     public function filterByCountry($country, $filterOp = null){
         if (!empty($country)){
             $column = BaseUtcOlsonMap::TABLE_NAME . self::DOT_DELIMITER . BaseUtcOlsonMap::COLUMN_COUNTRY;
@@ -60,6 +66,12 @@ class BaseUtcOlsonMapQuery extends BaseQuery
                 $this->filterBy($column, $country);
             }
         }
+
+        return $this;
+    }
+
+    public function orderByCountry(){
+        $this->orderBy(BaseUtcOlsonMap::COLUMN_COUNTRY, BaseUtcOlsonMap::TABLE_NAME);
 
         return $this;
     }
@@ -79,6 +91,12 @@ class BaseUtcOlsonMapQuery extends BaseQuery
         return $this;
     }
 
+    public function orderByOlsonCode(){
+        $this->orderBy(BaseUtcOlsonMap::COLUMN_OLSON_CODE, BaseUtcOlsonMap::TABLE_NAME);
+
+        return $this;
+    }
+
     public function filterByGMTTimeZone($gmtTimeZone, $filterOp = null){
         if (!empty($gmtTimeZone)){
             $column = BaseUtcOlsonMap::TABLE_NAME . self::DOT_DELIMITER . BaseUtcOlsonMap::COLUMN_GMT_TIME_ZONE;
@@ -90,6 +108,12 @@ class BaseUtcOlsonMapQuery extends BaseQuery
                 $this->filterBy($column, $gmtTimeZone);
             }
         }
+
+        return $this;
+    }
+
+    public function orderByGMTTimeZone(){
+        $this->orderBy(BaseUtcOlsonMap::COLUMN_GMT_TIME_ZONE, BaseUtcOlsonMap::TABLE_NAME);
 
         return $this;
     }
@@ -109,22 +133,30 @@ class BaseUtcOlsonMapQuery extends BaseQuery
         return $this;
     }
 
+    public function orderByGMTTimeZoneMap(){
+        $this->orderBy(BaseUtcOlsonMap::COLUMN_GMT_TIME_ZONE_MAP, BaseUtcOlsonMap::TABLE_NAME);
+
+        return $this;
+    }
+
     public function find(){
-        if ($db = new \SQLiteDatabase(BaseTimeZone::DATABASE, BaseTimeZone::DB_MODE, $this->err_msg)){
-            $this->query = $this->stmt . $this->getSelectedColumns() . $this->fromClause . $this->getWhereClause();
-            $result = $db->query($this->query, SQLITE_ASSOC, $this->err_msg);
+        if ($db = new \PDO('sqlite:'.BaseTimeZone::DATABASE)){
+            $this->query = $this->stmt . $this->getSelectedColumns() . $this->getFromClause() . $this->getWhereClause() . $this->getOrderByClause();
+
+            $result = $db->query($this->query);
             if ($result === false){
-                die("ERROR! QUERY FAILED - $this->err_msg");
+                print_r($db->errorInfo());
             }
 
             $utcOlsonMapColl = array();
 
-            /* @var $result SQLiteResult */
+            /* @var $result PDOStatement */
             $rows = $result->fetchAll();
             foreach($rows as $row){
                 $utcOlsonMap = new UtcOlsonMap();
                 $utcOlsonMap->setUtcOlsonMapId($row[BaseUtcOlsonMap::COLUMN_UTC_OLSON_MAP_ID]);
                 $utcOlsonMap->setCountry($row[BaseUtcOlsonMap::COLUMN_COUNTRY]);
+                $utcOlsonMap->setOlsonCode($row[BaseUtcOlsonMap::COLUMN_OLSON_CODE]);
                 $utcOlsonMap->setGmtTimeZone($row[BaseUtcOlsonMap::COLUMN_GMT_TIME_ZONE]);
                 $utcOlsonMap->setGmtTimeZoneMap($row[BaseUtcOlsonMap::COLUMN_GMT_TIME_ZONE_MAP]);
 
@@ -134,7 +166,7 @@ class BaseUtcOlsonMapQuery extends BaseQuery
             return $utcOlsonMapColl;
         }
         else {
-            die("ERROR! $this->err_msg");
+            print_r($db->errorInfo());
         }
 
         return null;

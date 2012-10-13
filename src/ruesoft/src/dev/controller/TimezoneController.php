@@ -9,6 +9,7 @@
 namespace ruesoft\src\dev\controller;
 
 use ruesoft\frmwrk\controller\BaseController;
+use ruesoft\src\dev\manager\TimeZoneManager;
 
 class TimezoneController extends BaseController
 {
@@ -163,8 +164,51 @@ class TimezoneController extends BaseController
         array("Pacific/Honolulu", "(GMT -10:00) Hawaii Time"),
         array("Pacific/Midway", "(GMT -11:00) Samoa Time"));
 
+    public static $gmtToFilteredOlsonCode = array("(GMT -09:00) Alaska Time" => "America/Anchorage",
+        "(GMT -04:00) Atlantic Time" => "America/Halifax",
+        "(GMT +01:00) Central European Time" => "Europe/Paris",
+        "(GMT -06:00) Central Time" => "America/Chicago",
+        "(GMT +02:00) Eastern European Time" => "Europe/Istanbul",
+        "(GMT -05:00) Eastern Time" => "America/New_York",
+        "(GMT +00:00) Greenwich Mean Time" => "Europe/London",
+        "(GMT -10:00) Hawaii Time" => "Pacific/Honolulu",
+        "(GMT +03:00) Minsk Time" => "Europe/Minsk",
+        "(GMT +04:00) Moscow Time" => "Europe/Moscow",
+        "(GMT +09:30) Central Time (AUS)" => "Australia/Darwin",
+        "(GMT +10:00) Eastern Time (AUS)" => "Australia/Sydney",
+        "(GMT +08:00) Western Time (AUS)" => "Australia/Perth",
+        "(GMT +05:30) India Time" => "Asia/Calcutta",
+        "(GMT +04:00) Gulf Time" => "Asia/Dubai",
+        "(GMT +08:00) Malaysia Time" => "Asia/Kuala_Lumpur",
+        "(GMT +07:00) Indochina Time" => "Asia/Phnom_Penh",
+        "(GMT +03:00) Arabia Time" => "sia/Qatar",
+        "(GMT +08:00) China Time" => "Asia/Shanghai",
+        "(GMT +09:00) Japan Time" => "Asia/Tokyo",
+        "(GMT -07:00) Mountain Time" => "America/Denver",
+        "(GMT -07:00) Mountain Time - Arizona" => "America/Phoenix",
+        "(GMT -03:30) Newfoundland Time" => "America/St_Johns",
+        "(GMT -08:00) Pacific Time" => "America/Los_Angeles",
+        "(GMT -11:00) Samoa Time" => "Pacific/Midway",
+        "(GMT +12:00) Wake Time" => "Pacific/Wake");
+
+    protected $timezoneMgr = null;
+
+    public function getTimeZoneManager(){
+        if ($this->timezoneMgr == null){
+            $this->timezoneMgr = TimeZoneManager::getInstance();
+        }
+
+        return $this->timezoneMgr;
+    }
+
     public function __construct(){
         parent::__construct();
+    }
+
+    public function listAction(){
+        $params = array();
+        $params['mappings'] = $this->getTimeZoneManager()->getUtcOlsonMap();;
+        return $this->render('timezones/list.html', $params);
     }
 
     public function showAction(){
@@ -173,8 +217,9 @@ class TimezoneController extends BaseController
         for($i = 0; $i < count(TimezoneController::$aegOlsonCodes); $i++){
             $columns = array();
             $columns[] = TimezoneController::$aegOlsonCodes[$i];
-            $columns[] = $this->lookupGMTTimezone(TimezoneController::$aegOlsonCodes[$i]);
-            $columns[] = '';
+            $gmtValue = $this->lookupGMTTimezone(TimezoneController::$aegOlsonCodes[$i]);
+            $columns[] = $gmtValue;
+            $columns[] = $this->mapGMTToFilteredOlsonCode($gmtValue);
             array_push($rows, $columns);
         }
         $params['rows'] = $rows;
@@ -189,6 +234,16 @@ class TimezoneController extends BaseController
     private function lookupGMTTimezone($olsonCode){
         foreach(TimezoneController::$gmtMapping as $map ){
             if ($map[0] == $olsonCode){ return $map[1]; }
+        }
+        return '';
+    }
+
+    private function mapGMTToFilteredOlsonCode($gmtValue){
+        foreach(TimezoneController::$gmtToFilteredOlsonCode as $key => $value){
+            //$ok = stripos($gmtValue, $key);
+            if ($gmtValue == $key){
+                return $value;
+            }
         }
         return '';
     }

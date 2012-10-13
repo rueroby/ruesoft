@@ -76,16 +76,17 @@ class BaseTimeZoneQuery extends BaseQuery
     }
 
     public function find(){
-        if ($db = new \SQLiteDatabase(BaseTimeZone::DATABASE, BaseTimeZone::DB_MODE, $this->err_msg)){
+        if ($db = new PDO('sqlite:'.BaseTimeZone::DATABASE)){
             $this->query = $this->stmt . $this->getSelectedColumns() . $this->fromClause . $this->getWhereClause();
+            var_dump($this->query); exit();
             $result = $db->query($this->query, SQLITE_ASSOC, $this->err_msg);
             if ($result === false){
-                die("ERROR! QUERY FAILED - $this->err_msg");
+                print_r($db->errorInfo());
             }
 
             $timeZoneColl = array();
 
-            /* @var $result SQLiteResult */
+            /* @var $result PDOStatement */
             $rows = $result->fetchAll();
             foreach($rows as $row){
                 $timeZone = new TimeZone();
@@ -99,7 +100,7 @@ class BaseTimeZoneQuery extends BaseQuery
             return $timeZoneColl;
         }
         else {
-            die("ERROR! $this->err_msg");
+            print_r($db->errorInfo());
         }
 
         return null;

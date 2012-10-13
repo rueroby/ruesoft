@@ -10,6 +10,8 @@ namespace ruesoft\src\dev\manager;
 
 use ruesoft\src\dev\model\TimeZone;
 use ruesoft\src\dev\model\TimeZoneQuery;
+use ruesoft\src\dev\model\UtcOlsonMap;
+use ruesoft\src\dev\model\UtcOlsonMapQuery;
 
 class TimeZoneManager
 {
@@ -30,5 +32,11 @@ class TimeZoneManager
 
     public function getTimeZone($pk){
         return TimeZoneQuery::create()->findPk($pk);
+    }
+
+    public function getUtcOlsonMap(){
+        return UtcOlsonMapQuery::create()
+            ->orderByCountry()
+            ->find();
     }
 }

@@ -10,7 +10,8 @@ namespace ruesoft\src\dev\model\sqlom;
 
 class BaseTimeZone
 {
-    const DATABASE = "D:\\websites\\ruesoft\\db\\ruesoft.sqlite";
+    //const DATABASE = "D:\\websites\\ruesoft\\db\\ruesoft.sqlite";
+    const DATABASE = "/Users/rudy/Sites/ruesoft/db/ruesoft.sqlite";
     const DB_MODE = "0666";
     const TABLE_NAME = 'time_zone';
     const COLUMN_TIME_ZONE_ID = 'time_zone_id';
@@ -53,41 +54,36 @@ class BaseTimeZone
     }
 
     public function save(){
-        if ($db = new \SQLiteDatabase(self::DATABASE, self::DB_MODE, $this->err_msg)){
-            $stmt = "CREATE TABLE IF NOT EXIST ".self::TABLE_NAME." (time_zone_id int, olson_code varchar 200, gmt_time_zone varchar 200, primary key (time_zone_id))";
-            $ok = @$db->queryExec($stmt, $this->err_msg);
-            if (!$ok){
-                die("ERROR! CREATE TABLE FAILED - $this->err_msg");
-            }
-
+        if ($db = new PDO('sqlite:'.self::DATABASE))
+        {
             if (!$this->timeZoneId){
                 $stmt = "INSERT INTO ".self::TABLE_NAME." VALUES (". $this->timeZoneId .", '". $this->olsonCode . "', '". $this->gmtTimeZone."')";
-                $ok = $db->queryExec($stmt, $this->err_msg);
-                if (!$ok){
-                    die("ERROR! INSERT FAILED - $this->err_msg");
+                $count = $db->exec($stmt);
+                if ($count === false){
+                    print_r($db->errorInfo());
                 }
             }
             else { // this is an update
                 $stmt = "UPDATE ".self::TABLE_NAME." SET ". self::COLUMN_OLSON_CODE ."='". $this->olsonCode .
                     "', ". self::COLUMN_GMT_TIME_ZONE ."='". $this->gmtTimeZone."' WHERE ". self::COLUMN_TIME_ZONE_ID . "=". $this->timeZoneId;
-                $ok = $db->queryExec($stmt, $this->err_msg);
-                if (!$ok){
-                    die("ERROR! UPDATE FAILED - $this->err_msg");
+                $count = $db->exec($stmt);
+                if ($count === false){
+                    print_r($db->errorInfo());
                 }
             }
         }
         else {
-            die("ERROR! OPEN DATABASE FAILED - $this->err_msg");
+            print_r($db->errorInfo());
         }
     }
 
     public function delete(){
         if (is_int($this->timeZoneId)){
-            if ($db = new \SQLiteDatabase(self::DATABASE, self::DB_MODE, $this->err_msg)){
+            if ($db = new PDO('sqlite:'.self::DATABASE)){
                 $stmt = "DELETE FROM ".self::TABLE_NAME." WHERE ".self::COLUMN_TIME_ZONE_ID."=".$this->timeZoneId;
-                $ok = $db->queryExec($stmt, $this->err_msg);
-                if (!$ok){
-                    die("ERROR! Delete Failed - $this->err_msg");
+                $count = $db->exec($stmt, $this->err_msg);
+                if ($count === false){
+                    print_r($db->errorInfo());
                 }
             }
 
