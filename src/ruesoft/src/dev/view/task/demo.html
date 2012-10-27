@@ -1,0 +1,30 @@
+{% extends "template.html" %}
+{% block hdrlinks %}
+<link rel="stylesheet" type="text/css" href="../../src/ruesoft/src/dev/resources/css/dev_promotion.css" media='screen'>
+{% endblock %}
+{% block javascript %}
+    {{ parent() }}
+    <script type="text/javascript" src="http://localhost/~rudy/ruesoft/js/ckeditor/ckeditor.js"></script>
+{% endblock %}
+{% block title %}Demo{% endblock %}
+{% block subnav %}
+<ul>
+    <li><a href="app_dev.php?controller=Task&action=showTwig">Listing</a></li>
+    <li><a href="app_dev.php?controller=Task&action=demo">CKEdit Demo</a></li>
+    <li><a href="app_dev.php?controller=Task&action=demo2">TinyMCE Demo</a></li>
+    <li><a href="app_dev.php?controller=Task&action=edit">Edit</a></li>
+</ul>
+{% endblock %}
+{% block content %}
+<form method="post" action="app_dev.php?controller=Task&action=demo" id="contact-form" name="contact-form">
+<textarea id="editor" name="editor">{{ content }}</textarea>
+<button type="submit">Save</button>
+</form>
+<script type="text/javascript">
+    $(document).ready(function(){
+        CKEDITOR.replace('editor');
+        $('#subnav').removeClass('hide');
+        $('#subnav').addClass('show');
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends "template.html" %}
+{% block hdrlinks %}
+<link rel="stylesheet" type="text/css" href="../../src/ruesoft/src/dev/resources/css/dev_task.css" media='screen'>
+{% endblock %}
+{% block title %}Edit Contact Information{% endblock %}
+{% block subnav %}
+<ul>
+    <li><a href="app_dev.php?controller=Task&action=showTwig">Listing</a></li>
+    <li><a href="app_dev.php?controller=Task&action=demo">CKEdit Demo</a></li>
+    <li><a href="app_dev.php?controller=Task&action=demo2">TinyMCE Demo</a></li>
+    <li><a href="app_dev.php?controller=Task&action=edit">Edit</a></li>
+</ul>
+{% endblock %}
+{% block content %}
+{# Edit Contact Page #}
+<form method="post" action="app_dev.php?controller=Task&action=edit" id="contact-form" name="contact-form">
+    <fieldset>
+        <legend>Contact Information</legend>
+        <div>
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" class="required"/>
+        </div>
+        <div>
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" class="required"/>
+        </div>
+        <div>
+            <label for="address">Address</label>
+            <textarea id="address" name="address" rows="4" cols="40"></textarea>
+        </div>
+        <div>
+            <label for="city">City</label>
+            <input type="text" id="city" name="city"/>
+        </div>
+        <div>
+            <label for="selectState">State</label>
+            <select id="selectState">
+                <option>Alabama</option>
+                <option>Alaska</option>
+                <option>Arizona</option>
+                <option>Arkansas</option>
+                <option>California</option>
+                <option>Colorado</option>
+                <option>Connecticut</option>
+                <option>Delaware</option>
+                <option>Florida</option>
+                <option>Georgia</option>
+                <option>Hawaii</option>
+                <option>Idaho</option>
+                <option>Illinois</option>
+                <option>Indiana</option>
+                <option>Iowa</option>
+                <option>Kansas</option>
+                <option>Kentucky</option>
+                <option>Louisiana</option>
+                <option>Main</option>
+                <option>Maryland</option>
+                <option>Massachusetts</option>
+                <option>Michigan</option>
+                <option>Minnesota</option>
+                <option>Mississippi</option>
+                <option>Missouri</option>
+                <option>Montana</option>
+                <option>Nebraska</option>
+                <option>Nevada</option>
+                <option>New Hampshire</option>
+                <option>New Jersey</option>
+                <option>New Mexico</option>
+                <option>New York</option>
+                <option>North Carolina</option>
+                <option>North Dakota</option>
+                <option>Ohio</option>
+                <option>Oklahoma</option>
+                <option>Oregon</option>
+                <option>Pennsylvania</option>
+                <option>Rhode Island</option>
+                <option>South Carolina</option>
+                <option>South Dakota</option>
+                <option>Tennessee</option>
+                <option>Texas</option>
+                <option>Utah</option>
+                <option>Vermont</option>
+                <option>Virginia</option>
+                <option>Washington</option>
+                <option>West Virginia</option>
+                <option>Wisconsin</option>
+                <option>Wyoming</option>
+            </select>
+        </div>
+        <div>
+            <label for="zipcode">Zip Code</label>
+            <input type="text" id="zipcode" name="zipcode"/>
+        </div>
+    </fieldset>
+    <button type="submit" id="btnSave" name="btnSave">Save</button>
+    <button type="button" id="btnCancel" name="btnCancel">Cancel</button>
+</form>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#contact-form').validate();
+        $('#subnav').removeClass('hide');
+        $('#subnav').addClass('show');
+    });
+</script>
+{% endblock %}

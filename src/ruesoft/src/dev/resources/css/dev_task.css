@@ -1,0 +1,22 @@
+fieldset {
+    border: 1px solid #ffa500;
+    width: 100%;
+    padding: 3px;
+}
+
+fieldset legend {
+    background-color: #ffa500;
+    color: white;
+    font-weight: bold;
+    padding: 6px;
+}
+
+fieldset label {
+    width: 160px;
+    color: #ffa500;
+    font-weight: bold;
+    display: block;
+    float: left;
+}
+
+label:after { content: ': '; }

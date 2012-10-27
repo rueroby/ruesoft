@@ -1,0 +1,40 @@
+{% extends "template.html" %}
+{% block hdrlinks %}
+<link rel="stylesheet" type="text/css" href="../../src/ruesoft/src/dev/resources/css/dev_timezone.css" media='screen'>
+{% endblock %}
+{% block title %}UTC Timezone Mappings{% endblock %}
+{% block subnav %}
+<ul>
+    <li><a href="app_dev.php?controller=Timezone&action=show">Show</a></li>
+    <li><a href="app_dev.php?controller=Timezone&action=insert">Insert</a></li>
+    <li><a href="app_dev.php?controller=Timezone&action=list">Listing</a></li>
+</ul>
+{% endblock %}
+{% block content %}
+<table>
+    <thead>
+    <th>Id</th>
+    <th>Country</th>
+    <th>Olson Code</th>
+    <th>GMT Timezone</th>
+    <th>Mapped GMT Timezone</th>
+    </thead>
+    <tbody>
+    {% for mapping in mappings %}
+    <tr id="row_{{ loop.index }}">
+        <td id="mapId">{{ mapping.getUtcOlsonMapId() }}</td>
+        <td id="country">{{ mapping.getCountry() }}</td>
+        <td id="olsonCode">{{ mapping.getOlsonCode() }}</td>
+        <td id="gmtTimezone">{{ mapping.getGmtTimeZone() }}</td>
+        <td id="gmtTimezoneMap">{{ mapping.getGmtTimeZoneMap() }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#subnav').removeClass('hide');
+        $('#subnav').addClass('show');
+    });
+</script>
+{% endblock %}
