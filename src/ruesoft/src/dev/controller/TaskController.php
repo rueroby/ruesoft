@@ -29,4 +29,64 @@ class TaskController extends BaseController
 
         return $this->render('task/index.html', $params);
     }
+
+    public function editAction(){
+        $request = $this->request;
+
+        $params = array();
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $data = $request->getPost();
+            //var_dump($data);exit();
+        }
+
+        return $this->render('task/edit.html', $params);
+    }
+
+    public function demoAction(){
+        $request = $this->request;
+
+        $params = array();
+
+        $content = '<h2>TinyMCE Editor Demo</h2>';
+        $content .= '<p>This text is used to initialize the textarea that will be converted by TinyMCE.</p>';
+        $content .= '<ul>';
+        $content .= '<li>List Item 1</li>';
+        $content .= '<li>List Item 2</li>';
+        $content .= '<li>List Item 3</li>';
+        $content .= '</ul>';
+        $content .= '<p>This is the last line.<strong>This sentence is highlighted.</strong></p>';
+
+        $params['content'] = $content;
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $data = $request->getPost();
+            var_dump($data['editor']);exit();
+        }
+
+        return $this->render('task/demo.html', $params);
+    }
+
+    public function demo2Action(){
+        $request = $this->request;
+        $params = array();
+
+        $content = '<h2>TinyMCE Editor Demo</h2>';
+        $content .= '<p>This text is used to initialize the textarea that will be converted by TinyMCE.</p>';
+        $content .= '<ul>';
+        $content .= '<li>List Item 1</li>';
+        $content .= '<li>List Item 2</li>';
+        $content .= '<li>List Item 3</li>';
+        $content .= '</ul>';
+        $content .= '<p>This is the last line.<strong>This sentence is highlighted.</strong></p>';
+
+        $params['content'] = $content;
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $data = $request->getPost();
+            var_dump($data['editor']);exit();
+        }
+
+        return $this->render('task/demo2.html', $params);
+    }
 }

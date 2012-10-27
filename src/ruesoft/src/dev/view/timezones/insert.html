@@ -3,6 +3,13 @@
 <link rel="stylesheet" type="text/css" href="../../src/ruesoft/src/dev/resources/css/dev_timezone.css" media='screen'>
 {% endblock %}
 {% block title %}Insert - Timezones{% endblock %}
+{% block subnav %}
+<ul>
+    <li><a href="app_dev.php?controller=Timezone&action=show">Show</a></li>
+    <li><a href="app_dev.php?controller=Timezone&action=insert">Insert</a></li>
+    <li><a href="app_dev.php?controller=Timezone&action=list">Listing</a></li>
+</ul>
+{% endblock %}
 {% block content %}
 <form action="ruesoft/web/dev/app_dev.php?controller=Timezone&action=insert" method="post">
     <div>
@@ -11,4 +18,10 @@
         <input type="submit" value="Submit"/>
     </div>
 </form>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#subnav').removeClass('hide');
+        $('#subnav').addClass('show');
+    });
+</script>
 {% endblock %}

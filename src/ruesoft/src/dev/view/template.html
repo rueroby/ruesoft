@@ -1,25 +1,17 @@
 <!DOCTYPE html>
 <html>
-<header>
+<head>
     {% block head %}
         <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" type="text/css" href="../../src/ruesoft/src/dev/resources/css/dev_style.css" media='screen'>
         {% block hdrlinks %}{% endblock %}
         {% block javascript %}
-            <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+            <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+            <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+            <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.19/jquery-ui.min.js"></script>
         {% endblock %}
-        <style type='text/css'>
-            body {font-family: verdana, sans-serif; font-size: 12pt;}
-            #container {width: 1000px;}
-            #header {background-color: #ffa500;}
-            h1 {margin-bottom: 0px}
-            #navigation {background-color: #ffd700;}
-            #navigation ul {list-style: none;}
-            #navigation ul li {display: inline;}
-            #content {backgound-color: #eeeeee; width: 100%; float:left;}
-            #footer {background-color: #ffa500;clear: both;text-align: center;}
-        </style>
     {% endblock %}
-</header>
+</head>
 <body>
 <div id='container'>
     <div id='header'>
@@ -31,6 +23,7 @@
                 <li><a href="app_dev.php?controller=Timezone&action=show">Timezones</a></li>
             </ul>
         </div>
+        <div id="subnav" class="hide">{% block subnav %}{% endblock %}</div>
     </div>
     <div id='content'>
         {% block content %}{% endblock %}
@@ -40,5 +33,6 @@
     </div>
     <div id='footer'>{%block footer %}<a href="http://www.ruesoft.biz">RueSoft</a> Copyright &copy; 2012{% endblock %}</div>
 </div>
+{% block scripts %}{% endblock %}
 </body>
 </html>

@@ -3,6 +3,13 @@
 <link rel="stylesheet" type="text/css" href="../../src/ruesoft/src/dev/resources/css/dev_timezone.css" media='screen'>
 {% endblock %}
 {% block title %}Timezones{% endblock %}
+{% block subnav %}
+<ul>
+    <li><a href="app_dev.php?controller=Timezone&action=show">Show</a></li>
+    <li><a href="app_dev.php?controller=Timezone&action=insert">Insert</a></li>
+    <li><a href="app_dev.php?controller=Timezone&action=list">Listing</a></li>
+</ul>
+{% endblock %}
 {% block content %}
 <table>
     <thead>
@@ -20,4 +27,10 @@
     {% endfor %}
     </tbody>
 </table>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#subnav').removeClass('hide');
+        $('#subnav').addClass('show');
+    });
+</script>
 {% endblock %}
