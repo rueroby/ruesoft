@@ -9,6 +9,7 @@
         <li><a href="app_dev.php?controller=Task&action=demo">CKEdit Demo</a></li>
         <li><a href="app_dev.php?controller=Task&action=demo2">TinyMCE Demo</a></li>
         <li><a href="app_dev.php?controller=Task&action=edit">Edit</a></li>
+        <li><a href="app_dev.php?controller=Task&action=convert">Convert HTML</a></li>
     </ul>
 {% endblock %}
 {% block content %}
@@ -22,10 +23,16 @@
         </tr>
         {% endfor %}
     </table>
+{% endblock %}
+{% block scripts %}
 <script type="text/javascript">
     $(document).ready(function(){
         $('#subnav').removeClass('hide');
         $('#subnav').addClass('show');
     });
+
+    if (Object.create === 'function'){
+        alert('Object.create exists!');
+    }
 </script>
 {% endblock %}

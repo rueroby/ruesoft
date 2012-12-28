@@ -30,6 +30,20 @@ class TaskController extends BaseController
         return $this->render('task/index.html', $params);
     }
 
+    public function convertAction(){
+        $request = $this->request;
+
+        $params = array();
+        $params['field1'] = 'enter something here!';
+        $params['field2'] = '';
+
+        if ($request->getMethod() == 'POST'){
+            $params['field2'] = htmlspecialchars($request->getPostVar('field1'));
+        }
+
+        return $this->render('task/page.html', $params);
+    }
+
     public function editAction(){
         $request = $this->request;
 
