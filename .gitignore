@@ -1,0 +1,12 @@
+*.bak
+composer.json
+composer.json.bak
+composer.lock
+composer.phar
+out.sh
+.idea/
+vendor/
+projectFilesBackup/
+src/ruesoft/app_biz/cache/
+src/ruesoft/app_dev/cache/
+src/ruesoft/app_spanish/cache/
