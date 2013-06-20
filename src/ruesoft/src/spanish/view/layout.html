@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% block head %}
+    <title>{% block title %}{% endblock %}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8 ">
+    <link rel="stylesheet" type="text/css" href="../../src/ruesoft/src/spanish/resources/css/spanish_style.css" media='screen'>
+    {% block hdrlinks %}{% endblock %}
+    {% block javascript %}
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.19/jquery-ui.min.js"></script>
+    {% endblock %}
+    {% endblock %}
+</head>
+<body>
+    <div id='container'>
+        <div id='header'>
+            <h1>{{ block('title') }}</h1>
+            <div id='navigation'>
+                <ul>
+                    <li><a href="app_spanish.php?controller=Study&action=show">Vocabulario</a></li>
+                </ul>
+            </div>
+            <div id="subnav" class="hide">{% block subnav %}{% endblock %}</div>
+        </div>
+        <div id='content'>
+            {% block content %}{% endblock %}
+        </div>
+        <div id="rightSide">
+            {% block rightSide %}{% endblock %}
+        </div>
+        <div id='footer'>{%block footer %}<a href="http://www.ruesoft.biz">RueSoft</a> Copyright &copy; 2013{% endblock %}</div>
+    </div>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

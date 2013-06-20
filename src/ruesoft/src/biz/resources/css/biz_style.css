@@ -1,0 +1,143 @@
+/* overall document properties */
+body {
+    margin: 0;
+    color: black;
+    background: white;
+    font-family: Verdana, Arial, Helvetical, sans-serif;
+    font-size: 100%;
+}
+/* div properties ... instead of the div tag followed by the id selector I'm
+only using the id selector
+*/
+
+.clearfix {clear: both;}
+.center {text-align: center;}
+
+#pageheader {
+    color: #FF6600;
+    background: #F5DEB3;
+    width: 100%
+}
+.leftside {
+    float: left;
+    width: 15%;
+}
+.rightside {
+    float: right;
+    width: 15%;
+}
+#content {
+    padding: 0.5em 0.5em;
+    left: 16%;
+    height: 100%;
+    width: 65%;
+}
+#pagefooter {
+    clear: both;
+    width: 100%;
+}
+
+label:after { content: ": ";}
+
+fieldset label {
+    color: #DAA520;
+    display: block;
+    float: left;
+    font-weight: bold;
+    width: 160px;
+}
+
+fieldset legend {
+    background-color: #F5DEB3;
+    color: white;
+    font-weight: bold;
+    padding: 6px;
+}
+
+/*
+properties are set here for specific elements in the content area
+and footer area
+*/
+#content p {
+    left: 16%;
+    font-size: 95%;
+}
+
+#content table {
+    width: 60%;
+    margin: 0;
+}
+#content table td {
+    padding: 0;
+    border-width: 0;
+    vertical-align: top;
+    font-size: 95%;
+}
+#pagecopyright {
+    text-align: center;
+    font-size: small;
+}
+#login { align: center; }
+#login table {
+    width: 30%;
+    align: center;
+    padding: 4px;
+}
+
+#errors {
+    color: #FF0000;
+}
+#joinus #purpose {
+    font-size: 75%;
+}
+#become {
+    font-size: 115%;
+}
+.warning {
+    font-size: 115%;
+    color: red;
+}
+
+/* Navigation box and link properties follow, */
+.boxheading {
+    display: block;
+    width: 160px;
+    color: #FFFFFF;
+    background: #DAA520;
+    text-align: center;
+}
+ul.navbox {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 160px;
+    background-color: #F5DEB3;
+}
+ul.navbox li {
+    display: inline;
+    list-style: none;
+    text-align: left;
+    margin: 0;
+}
+ul.navbox li a {
+    display: block;
+    text-decoration: none;
+    font-size: 75%;
+    padding: 4px;
+    border-bottom: 1px solid #c99;
+    border-right: 1px solid #c99;
+    background-color: #F5DEB3;
+}
+ul#footernav {
+    white-space: nowrap;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    text-align: center;
+}
+ul#footernav li {
+    display: inline;
+    list-style: none;
+    text-align: center;
+    font-size: 75%;
+}

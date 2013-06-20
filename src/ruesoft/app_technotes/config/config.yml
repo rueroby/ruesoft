@@ -1,0 +1,4 @@
+technotes:
+    controllers: "\\ruesoft\\src\\biz\\controller\\"
+    view: {macos: "/Users/rudy/Sites/ruesoft/src/ruesoft/src/biz/view", winos: ""}
+    cache: {macos: "/Users/rudy/Sites/ruesoft/src/ruesoft/app_biz/cache", winos: ""}

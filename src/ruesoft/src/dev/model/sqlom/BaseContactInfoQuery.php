@@ -12,6 +12,7 @@ use ruesoft\frmwrk\model\BaseQuery;
 use ruesoft\frmwrk\model\SqlitePDO;
 use ruesoft\src\dev\model\ContactInfo;
 
+
 class BaseContactInfoQuery extends BaseQuery
 {
     protected function __construct(){
@@ -20,7 +21,8 @@ class BaseContactInfoQuery extends BaseQuery
         $this->fromClause = " FROM ".BaseContactInfo::TABLE_NAME;
 
         $this->defaultSelect .= " ";
-        $this->defaultSelect .= BaseContactInfo::TABLE_NAME . self::DOT_DELIMITER .BaseContactInfo::COLUMN_CONTACT_INFO_ID;
+//        $this->defaultSelect .= BaseContactInfo::TABLE_NAME . self::DOT_DELIMITER .BaseContactInfo::COLUMN_CONTACT_INFO_ID;
+        $this->defaultSelect .= BaseContactInfo::TABLE_NAME . self::DOT_DELIMITER ."_ROWID_";
         $prefix = self::COMMA_SPACE_SEPARATOR;
         $this->defaultSelect .= $prefix . BaseContactInfo::TABLE_NAME . self::DOT_DELIMITER .BaseContactInfo::COLUMN_FIRST_NAME;
         $this->defaultSelect .= $prefix . BaseContactInfo::TABLE_NAME . self::DOT_DELIMITER .BaseContactInfo::COLUMN_LAST_NAME;
@@ -182,32 +184,35 @@ class BaseContactInfoQuery extends BaseQuery
     }
 
     public function find(){
-        if ($db = SqlitePDO::open(BaseTimeZone::DATABASE)){
+        if ($db = SqlitePDO::open(BaseContactInfo::DATABASE)){
             $this->query = $this->stmt . $this->getSelectedColumns() . $this->getFromClause() . $this->getWhereClause() . $this->getOrderByClause();
 
             $result = $db->query($this->query);
             if ($result === false){
                 print_r($db->errorInfo());
             }
+            else {
+                $coll = array();
 
-            $coll = array();
+                /* @var $result PDOStatement */
+                $rows = $result->fetchAll();
+//                var_dump($rows);
+                foreach($rows as $row){
+                    $contactInfo = new ContactInfo();
+                    $contactInfo->setContactInfoId($row[BaseContactInfo::COLUMN_CONTACT_INFO_ID]);
+//                    $contactInfo->setContactInfoId($row["rowid"]);
+                    $contactInfo->setFirstName($row[BaseContactInfo::COLUMN_FIRST_NAME]);
+                    $contactInfo->setLastName($row[BaseContactInfo::COLUMN_LAST_NAME]);
+                    $contactInfo->setAddress($row[BaseContactInfo::COLUMN_ADDRESS]);
+                    $contactInfo->setCity($row[BaseContactInfo::COLUMN_CITY]);
+                    $contactInfo->setState($row[BaseContactInfo::COLUMN_STATE]);
+                    $contactInfo->setZipCode($row[BaseContactInfo::COLUMN_ZIPCODE]);
 
-            /* @var $result PDOStatement */
-            $rows = $result->fetchAll();
-            foreach($rows as $row){
-                $contactInfo = new ContactInfo();
-                $contactInfo->setContactInfoId(BaseContactInfo::COLUMN_CONTACT_INFO_ID);
-                $contactInfo->setFirstName($row[BaseContactInfo::COLUMN_FIRST_NAME]);
-                $contactInfo->setLastName($row[BaseContactInfo::COLUMN_LAST_NAME]);
-                $contactInfo->setAddress($row[BaseContactInfo::COLUMN_ADDRESS]);
-                $contactInfo->setCity($row[BaseContactInfo::COLUMN_CITY]);
-                $contactInfo->setState($row[BaseContactInfo::COLUMN_STATE]);
-                $contactInfo->setZipCode($row[BaseContactInfo::COLUMN_ZIPCODE]);
+                    array_push($coll, $contactInfo);
+                }
 
-                array_push($coll, $contactInfo);
+                return $coll;
             }
-
-            return $coll;
         }
         else {
             print_r($db->errorInfo());
@@ -219,7 +224,9 @@ class BaseContactInfoQuery extends BaseQuery
     public function findPk($pk){
         $this->filterByContactInfoId($pk);
 
-        return $this->find();
+        $coll = $this->find();
+        if ($coll) return $coll[0];
+        return null;
     }
 
 }

@@ -1,0 +1,32 @@
+{% extends "template.html" %}
+{% block hdrlinks %}
+<link rel="stylesheet" type="text/css" href="../../src/ruesoft/src/dev/resources/css/dev_promotion.css" media='screen'>
+{% endblock %}
+{% block title %}Task{% endblock %}
+{% block subnav %}
+<ul>
+    <li><a href="app_dev.php?controller=Task&action=showTwig">Listing</a></li>
+    <li><a href="app_dev.php?controller=Task&action=demo">CKEdit Demo</a></li>
+    <li><a href="app_dev.php?controller=Task&action=demo2">TinyMCE Demo</a></li>
+    <li><a href="app_dev.php?controller=Task&action=edit">Edit</a></li>
+    <li><a href="app_dev.php?controller=Task&action=convert">Convert HTML</a></li>
+</ul>
+{% endblock %}
+{% block content %}
+<form method="post" action="app_dev.php?controller=Task&action=convert" id="page-form" name="page-form">
+    <fieldset>
+        <legend>Convert HTML</legend>
+        <ul>
+            <li><label for='field1'>Input:</label><textarea id='field1' name='field1'>{{ field1 }}</textarea></li>
+            <li><label for='field2'>Output:</label><textarea id='field2' name='field2'>{{ field2 }}</textarea></li>
+        </ul>
+    </fieldset>
+    <button type='submit'>Submit</button>
+</form>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#subnav').removeClass('hide');
+        $('#subnav').addClass('show');
+    });
+</script>
+{% endblock %}

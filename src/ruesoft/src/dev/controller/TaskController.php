@@ -9,23 +9,38 @@
 namespace ruesoft\src\dev\controller;
 
 use ruesoft\frmwrk\controller\BaseController;
+use ruesoft\src\dev\model\ContactInfo;
+use ruesoft\src\dev\manager\ContactInfoManager;
 
 class TaskController extends BaseController
 {
+    /* @var $contactInfoManager ContactInfoManager */
+    protected $contactInfoManager;
+
     public function __construct(){
         parent::__construct();
+    }
+
+    private function getContactInfoManager() {
+        if (!$this->contactInfoManager){
+            $this->contactInfoManager = ContactInfoManager::getInstance();
+        }
+
+        return $this->contactInfoManager;
     }
 
     public function showTwigAction(){
         //return $this->render('Hello {{ name }}', array('name' => 'Rudy'));
         $params = array();
 
-        $rows = array();
-        array_push($rows, array('apple', 'banana', 'currants'));
-        array_push($rows, array('Audi', 'Bentley', 'Cadillac'));
-        array_push($rows, array('Apple', 'Google', 'FaceBook'));
-        $params['rows'] = $rows;
-        $params['name'] = 'Rudy';
+//        $rows = array();
+//        array_push($rows, array('apple', 'banana', 'currants'));
+//        array_push($rows, array('Audi', 'Bentley', 'Cadillac'));
+//        array_push($rows, array('Apple', 'Google', 'FaceBook'));
+//        $params['rows'] = $rows;
+//        $params['name'] = 'Rudy';
+
+        $params['contacts'] = $this->getContactInfoManager()->getContacts();
 
         return $this->render('task/index.html', $params);
     }
@@ -46,12 +61,31 @@ class TaskController extends BaseController
 
     public function editAction(){
         $request = $this->request;
+//        var_dump($request);exit();
+        $id = $request->getQueryVar("id");
+        $contact = null;
+        if ($id != null){
+            $contact = $this->getContactInfoManager()->getContactForId($id);
+        }else {
+            $contact = new ContactInfo();
+        }
+
 
         $params = array();
+        $params["contact"] =  $contact;
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             $data = $request->getPost();
-            //var_dump($data);exit();
+//            var_dump($data);exit();
+            $contact->setFirstName($data["firstName"]);
+            $contact->setLastName($data["lastName"]);
+            $contact->setAddress($data["address"]);
+            $contact->setCity($data["city"]);
+            $contact->setState($data["selectState"]);
+            $contact->setZipCode($data["zipcode"]);
+
+            $this->getContactInfoManager()->saveContactInfo($contact);
+            $this->showTwigAction();
         }
 
         return $this->render('task/edit.html', $params);

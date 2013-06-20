@@ -99,17 +99,19 @@ class BaseContactInfo
     public function save(){
         if ($db = SqlitePDO::open(self::DATABASE))
         {
-            $stmt = 'CREATE TABLE IF NOT EXIST ';
+            $stmt = 'CREATE TABLE IF NOT EXISTS ';
             $stmt .= self::TABLE_NAME;
-            $stmt .= " (contact_info_id int, first_name varchar 120, last_name varchar 120, address varchar 360, city varchar 50, state varchar 50, zipcode char 12, primary key (contact_info_id))";
-            $ok = @$db->exec($stmt);
+            $stmt .= " (contact_info_id int, first_name varchar (120), last_name varchar (120), address varchar (360), city varchar (50), state varchar (50), zipcode char (12), primary key (contact_info_id))";
+            $ok = $db->exec($stmt);
             if ($ok === false){
+                print_r("SQL stmt: " . $stmt);
                 print_r($db->errorInfo());
+                exit();
             }
 
-            if (!$this->timeZoneId){
+            if (!$this->contactInfoId){
                 $stmt = "INSERT INTO ".self::TABLE_NAME;
-                $stmt .= " VALUES (". $this->contactInfoId;
+                $stmt .= " VALUES (NULL";
                 $stmt .= ", '". $this->firstName;
                 $stmt .= "', '". $this->lastName;
                 $stmt .= "', '". $this->address;
@@ -119,6 +121,7 @@ class BaseContactInfo
                 $stmt .= "');";
                 $count = $db->exec($stmt);
                 if ($count === false){
+                    print_r('Exec stmt: '.$stmt);
                     print_r($db->errorInfo());
                 }
             }
@@ -134,6 +137,7 @@ class BaseContactInfo
 
                 $count = $db->exec($stmt);
                 if ($count === false){
+                    print_r('Exec stmt: '.$stmt);
                     print_r($db->errorInfo());
                 }
             }
@@ -145,7 +149,8 @@ class BaseContactInfo
 
     public function delete(){
         if (is_int($this->contactInfoId)){
-            if ($db = SqlitePDO::open(self::DATABASE)){
+            if ($db = SqlitePDO::open(self::DATABASE))
+            {
                 $stmt = "DELETE FROM ".self::TABLE_NAME." WHERE ".self::COLUMN_CONTACT_INFO_ID."=".$this->contactInfoId . ";";
                 $count = $db->exec($stmt, $this->err_msg);
                 if ($count === false){

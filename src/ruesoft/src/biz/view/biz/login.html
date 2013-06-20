@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block title %}RueSoft.biz{% endblock %}
+{% block content %}
+<div align="center" id="login"><strong>Please Login</strong>
+    <form action="app_dev.php?controller=Biz&action=login" method="post">
+        <table cellspacing="0">
+            <tr><td id="userlabel"><strong>Username:</strong>
+            </td>
+                <td ="userinput"><input type="text" name="username" id="username" />
+                </td>
+            </tr>
+            <tr><td id="pwdlabel"><strong>Password:</strong>
+            </td>
+                <td id="pwdinput"><input type="password" name="password" id="password" />
+                </td>
+            </tr>
+            <tr><td>&nbsp;
+            </td>
+                <td><div align="center">
+                    <input type="hidden" name="req" value="validate" />
+                    <input type="submit" name="Submit" value="Submit" />
+                </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>{% endblock %}

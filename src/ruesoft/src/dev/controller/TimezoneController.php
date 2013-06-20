@@ -207,7 +207,7 @@ class TimezoneController extends BaseController
 
     public function listAction(){
         $params = array();
-        $params['mappings'] = $this->getTimeZoneManager()->getUtcOlsonMap();;
+        $params['mappings'] = $this->getTimeZoneManager()->getUtcOlsonMap();
         return $this->render('timezones/list.html', $params);
     }
 

@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block title %}Estudia Palabras Españolas{% endblock %}
+{% block content %}
+<input type="button" id="btnEnglish" value="Haz clic por Inglés"/>
+<table>
+    <thead>
+    <th>Español</th>
+    <th class="englishOff">Inglés</th>
+    </thead>
+    <tbody>
+    {% for row in words %}
+    <tr id="row_{{ loop.index }}">
+        <td class="spanish">{{ row.getSpanish() }}</td>
+        <td class="englishOff">{{ row.getEnglish() }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#subnav').removeClass('hide');
+        $('#subnav').addClass('show');
+        $('#btnEnglish').click(function(){
+            $('.englishOff').toggle();
+        });
+    });
+</script>
+{% endblock %}

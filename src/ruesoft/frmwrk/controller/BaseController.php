@@ -16,12 +16,14 @@ class BaseController
     protected $request;
     protected $response;
     protected $session;
+    protected $view = "/../../src/dev/view";
+    protected $cache = '/../../app_dev/cache';
 
     public function __construct(){
 
         \Twig_Autoloader::register();
-        $this->loader = new \Twig_Loader_Filesystem(__DIR__."/../../src/dev/view");  // or     $this->loader = new \Twig_Loader_String();
-        $this->twig = new \Twig_Environment( $this->loader, array('cache' => __DIR__.'/../../app_dev/cache',
+        $this->loader = new \Twig_Loader_Filesystem(__DIR__.$this->view);  // or     $this->loader = new \Twig_Loader_String();
+        $this->twig = new \Twig_Environment( $this->loader, array('cache' => __DIR__.$this->cache,
             'auto_reload' => true));
 
         $this->request = new RuesoftHttpRequest();

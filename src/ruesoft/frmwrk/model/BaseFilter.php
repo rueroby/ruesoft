@@ -1,4 +1,5 @@
 <?php
+namespace ruesoft\frmwrk\model;
 
 class BaseFilter
 {

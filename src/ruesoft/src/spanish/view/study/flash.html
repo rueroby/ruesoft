@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block title %}Study: Spanish Flash Cards{% endblock %}
+{% block content %}
+<div>
+
+    <input type="button" id="btnEnglish" value="Haz clic por Inglés"/>
+    <input type="button" id="btnNext" value="Proximá"/>
+</div>
+
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#subnav').removeClass('hide');
+        $('#subnav').addClass('show');
+        $('#btnEnglish').click(function(){
+            $('.englishOff').toggle();
+        });
+    });
+</script>
+{% endblock %}

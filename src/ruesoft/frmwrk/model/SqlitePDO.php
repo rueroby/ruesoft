@@ -17,7 +17,7 @@ class SqlitePDO
 //    }
 
     public static function open($database){
-        return new PDO('sqlite:'.$database);
+        return new \PDO('sqlite:'.$database);
     }
 
     public static function ifTableExists($db, $tableName){
@@ -32,6 +32,7 @@ class SqlitePDO
 
         $stmt = "SELECT COUNT(*) FROM sqlite_master WHERE type = '". $type . "' AND name = '" . $tableName . "';";
         $count = $db->querySingle($stmt);
+
 
         return $count > 0;
     }

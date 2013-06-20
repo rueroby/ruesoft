@@ -13,15 +13,39 @@
     </ul>
 {% endblock %}
 {% block content %}
-    <h2>Hello, {{ name }}!</h2>
+    <!--<h2>Hello, {{ name }}!</h2>-->
+    <!--<table>-->
+        <!--{% for row in rows %}-->
+        <!--<tr id="row_{{ loop.index }}">-->
+            <!--{% for column in row %}-->
+            <!--<td id="column_{{ loop.index }}">{{ column }}</td>-->
+            <!--{% endfor %}-->
+        <!--</tr>-->
+        <!--{% endfor %}-->
+    <!--</table>-->
     <table>
-        {% for row in rows %}
+        <thead>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Zipcode</th>
+        </thead>
+        <tbody>
+        {% for row in contacts %}
         <tr id="row_{{ loop.index }}">
-            {% for column in row %}
-            <td id="column_{{ loop.index }}">{{ column }}</td>
-            {% endfor %}
+            <td id="rowId">{{ row.getContactInfoId() }}</td>
+            <td id="firstName">{{ row.getFirstName() }}</td>
+            <td id="lastName">{{ row.getLastName() }}</td>
+            <td id="address">{{ row.getAddress() }}</td>
+            <td id="city">{{ row.getCity() }}</td>
+            <td id="state">{{ row.getState() }}</td>
+            <td id="zipcode">{{ row.getZipcode() }}</td>
         </tr>
         {% endfor %}
+        </tbody>
     </table>
 {% endblock %}
 {% block scripts %}

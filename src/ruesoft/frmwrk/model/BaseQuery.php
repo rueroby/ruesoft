@@ -30,7 +30,7 @@ class BaseQuery
         $filter->setTableName($tableName);
         $filter->setValue($value);
 
-        array_push($filters, $filter);
+        array_push($this->filters, $filter);
         return $this;
     }
 
@@ -78,7 +78,7 @@ class BaseQuery
 
             $prefix = "";
             foreach($this->filters as $filter){
-                $this->whereClause .= $prefix . $filter[0].$filter[1].$filter[2];
+                $this->whereClause .= $prefix . $filter;
                 $prefix = " AND ";
             }
         }

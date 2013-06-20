@@ -78,7 +78,7 @@ class BaseTimeZoneQuery extends BaseQuery
     public function find(){
         if ($db = new PDO('sqlite:'.BaseTimeZone::DATABASE)){
             $this->query = $this->stmt . $this->getSelectedColumns() . $this->fromClause . $this->getWhereClause();
-            var_dump($this->query); exit();
+//            var_dump($this->query); exit();
             $result = $db->query($this->query, SQLITE_ASSOC, $this->err_msg);
             if ($result === false){
                 print_r($db->errorInfo());
