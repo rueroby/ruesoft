@@ -12,18 +12,6 @@ class DependencyInjector extends DIContainer
 {
     protected $values = array();
 
-//    public static function makeController($loader, $controllerPath, $controller){
-//        $controllerClass = $controllerPath . $controller . 'Controller';
-//        try {
-//            $loader->loadClass($controllerClass);
-//
-//            return new $controllerClass();
-//        }
-//        catch(Exception $error){
-//            die($error->getMessage());
-//        }
-//    }
-
     public function __construct(){}
 
     public function __set($key, $value){
